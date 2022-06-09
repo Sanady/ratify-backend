@@ -11,7 +11,7 @@
 	<groupId>com.ratify</groupId>
 	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Ratify</name>
+	<name>backend</name>
 	<description>Application for rating businesses by Ivan Rener</description>
 	<properties>
 		<java.version>11</java.version>
