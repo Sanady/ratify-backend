@@ -1,6 +1,7 @@
 package com.ratify.backend.models;
 
 import com.ratify.backend.models.enums.EResetPasswordMethod;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -21,6 +22,7 @@ public class UserResetPasswordHistory {
     @DBRef
     private User user;
 
+    @Schema(allowableValues = {"EMAIL"})
     @NotBlank
     private EResetPasswordMethod method;
 

@@ -1,6 +1,7 @@
 package com.ratify.backend.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -44,6 +45,7 @@ public class User {
     @JsonIgnore
     private String normalizedUsername;
 
+    @Schema(allowableValues = {"ROLE_USER", "ROLE_MODERATOR", "ROLE_ADMIN"})
     private Set<Role> roles = new HashSet<>();
 
     public User(String username, String email, String password, String normalizedUsername, Date createdAt, Date updatedAt) {

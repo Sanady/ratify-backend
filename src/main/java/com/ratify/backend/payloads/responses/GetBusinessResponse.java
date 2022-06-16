@@ -3,6 +3,7 @@ package com.ratify.backend.payloads.responses;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ratify.backend.models.Address;
 import com.ratify.backend.models.enums.EBusiness;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class GetBusinessResponse {
     @JsonProperty("updated_at")
     private Date updatedAt;
 
+    @Schema(allowableValues = {"NIGHTCLUB", "BAR", "COFFEE_SHOP", "RESTAURANT", "STREET_FOOD"})
     @JsonProperty("business_type")
     private List<EBusiness> businessType;
 

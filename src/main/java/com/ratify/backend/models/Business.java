@@ -1,6 +1,7 @@
 package com.ratify.backend.models;
 
 import com.ratify.backend.models.enums.EBusiness;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -37,6 +38,7 @@ public class Business {
     @Field("normalized_username")
     private String normalizedUsername;
 
+    @Schema(allowableValues = {"NIGHTCLUB", "BAR", "COFFEE_SHOP", "RESTAURANT", "STREET_FOOD"})
     @Field("business_type")
     private List<EBusiness> businessType;
 

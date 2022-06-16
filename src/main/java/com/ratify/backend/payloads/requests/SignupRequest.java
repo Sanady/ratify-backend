@@ -1,5 +1,6 @@
 package com.ratify.backend.payloads.requests;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -18,6 +19,7 @@ public class SignupRequest {
     @Email
     private String email;
 
+    @Schema(allowableValues = {"ROLE_USER", "ROLE_MODERATOR", "ROLE_ADMIN"})
     private Set<String> roles;
 
     @NotBlank
