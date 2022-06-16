@@ -3,6 +3,7 @@ package com.ratify.backend.controllers;
 import com.ratify.backend.payloads.requests.CreateBusinessRequest;
 import com.ratify.backend.payloads.requests.SetBusinessStatusRequest;
 import com.ratify.backend.services.implementations.BusinessServiceImpl;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,7 +36,7 @@ public class BusinessController {
 
     @PreAuthorize("hasRole('MODERATOR')")
     @PostMapping(CREATE_BUSINESS)
-    public ResponseEntity<Object> createBusiness(@Valid @RequestBody CreateBusinessRequest request, @RequestHeader(name="Authorization") String token) {
+    public ResponseEntity<Object> createBusiness(@Valid @RequestBody CreateBusinessRequest request, @Parameter(hidden = true) @RequestHeader(name="Authorization") String token) {
         return businessService.createBusiness(request, token);
     }
 
@@ -47,7 +48,7 @@ public class BusinessController {
 
     @PreAuthorize("hasRole('USER')")
     @PatchMapping(BUSINESS_STATUS)
-    public ResponseEntity<Object> setBusinessStatus(@RequestParam String name, @Valid @RequestBody SetBusinessStatusRequest request, @RequestHeader (name="Authorization") String token) {
+    public ResponseEntity<Object> setBusinessStatus(@RequestParam String name, @Valid @RequestBody SetBusinessStatusRequest request, @Parameter(hidden = true) @RequestHeader (name="Authorization") String token) {
         return businessService.setBusinessStatus(name, request, token);
     }
 

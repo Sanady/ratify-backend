@@ -2,6 +2,7 @@ package com.ratify.backend.controllers;
 
 import com.ratify.backend.payloads.requests.ChangePasswordRequest;
 import com.ratify.backend.services.implementations.UserServiceImpl;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -44,7 +45,7 @@ public class UserController {
 
     @PreAuthorize("hasRole('USER')")
     @PatchMapping(CHANGE_PASSWORD)
-    public ResponseEntity<Object> changePassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest, @RequestHeader(name="Authorization") String token) {
+    public ResponseEntity<Object> changePassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest, @Parameter(hidden = true) @RequestHeader(name="Authorization") String token) {
         return userService.changePassword(token, changePasswordRequest);
     }
 }
