@@ -8,7 +8,6 @@ import com.ratify.backend.payloads.responses.MessageResponse;
 import com.ratify.backend.repositories.RoleRepository;
 import com.ratify.backend.repositories.UserRepository;
 import com.ratify.backend.services.interfaces.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,11 +24,14 @@ import static com.ratify.backend.constants.ErrorsEnum.ERROR_USER_001;
 
 @Service
 public class RoleServiceImpl implements RoleService {
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    @Autowired
-    RoleRepository roleRepository;
+    public RoleServiceImpl(UserRepository userRepository,
+                           RoleRepository roleRepository) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+    }
 
     @Override
     public ResponseEntity<Object> getAllUserRolesByUsername(String username) {

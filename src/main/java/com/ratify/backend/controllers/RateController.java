@@ -2,7 +2,6 @@ package com.ratify.backend.controllers;
 
 import com.ratify.backend.payloads.requests.RateBusinessRequest;
 import com.ratify.backend.services.implementations.RateServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,8 +17,11 @@ import static com.ratify.backend.constants.ApplicationConstants.RATE;
 @RestController
 @RequestMapping(RATE)
 public class RateController {
-    @Autowired
-    RateServiceImpl rateService;
+    private final RateServiceImpl rateService;
+
+    public RateController(RateServiceImpl rateService) {
+        this.rateService = rateService;
+    }
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping(POST_RATE)

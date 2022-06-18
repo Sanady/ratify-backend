@@ -20,7 +20,6 @@ import com.ratify.backend.security.JwtUtils;
 import com.ratify.backend.services.interfaces.BusinessService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -44,14 +43,17 @@ import static com.ratify.backend.constants.ErrorsEnum.ERROR_USER_001;
 public class BusinessServiceImpl implements BusinessService {
     private static final Logger log = LoggerFactory.getLogger(BusinessServiceImpl.class);
 
-    @Autowired
-    BusinessRepository businessRepository;
+    private final BusinessRepository businessRepository;
+    private final UserRepository userRepository;
+    private final JwtUtils jwtUtils;
 
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    JwtUtils jwtUtils;
+    public BusinessServiceImpl(BusinessRepository businessRepository,
+                               UserRepository userRepository,
+                               JwtUtils jwtUtils) {
+        this.businessRepository = businessRepository;
+        this.userRepository = userRepository;
+        this.jwtUtils = jwtUtils;
+    }
 
     @Override
     public ResponseEntity<Object> createBusiness(CreateBusinessRequest request, String token) {

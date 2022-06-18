@@ -5,7 +5,6 @@ import com.ratify.backend.payloads.requests.LoginRequest;
 import com.ratify.backend.payloads.requests.SignupRequest;
 import com.ratify.backend.services.implementations.AuthorizationServiceImpl;
 import com.ratify.backend.services.implementations.UserResetPasswordTokenServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,11 +27,13 @@ import static com.ratify.backend.constants.ApplicationConstants.SIGN_UP;
 @RestController
 @RequestMapping(AUTHORIZATION)
 public class AuthorizationController {
-    @Autowired
-    AuthorizationServiceImpl authenticationService;
+    private final AuthorizationServiceImpl authenticationService;
+    private final UserResetPasswordTokenServiceImpl userResetPassword;
 
-    @Autowired
-    UserResetPasswordTokenServiceImpl userResetPassword;
+    public AuthorizationController(AuthorizationServiceImpl authenticationService, UserResetPasswordTokenServiceImpl userResetPassword) {
+        this.authenticationService = authenticationService;
+        this.userResetPassword = userResetPassword;
+    }
 
     @PostMapping(SIGN_IN)
     public ResponseEntity<Object> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {

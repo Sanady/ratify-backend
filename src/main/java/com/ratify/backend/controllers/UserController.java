@@ -3,7 +3,6 @@ package com.ratify.backend.controllers;
 import com.ratify.backend.payloads.requests.ChangePasswordRequest;
 import com.ratify.backend.services.implementations.UserServiceImpl;
 import io.swagger.v3.oas.annotations.Parameter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,8 +27,11 @@ import static com.ratify.backend.constants.ApplicationConstants.USER;
 @RestController
 @RequestMapping(USER)
 public class UserController {
-    @Autowired
-    UserServiceImpl userService;
+    private final UserServiceImpl userService;
+
+    public UserController(UserServiceImpl userService) {
+        this.userService = userService;
+    }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping(GET_USER)

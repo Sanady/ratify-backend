@@ -14,7 +14,6 @@ import com.ratify.backend.repositories.UserResetPasswordTokenRepository;
 import com.ratify.backend.services.interfaces.UserResetPasswordTokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,20 +33,23 @@ import static com.ratify.backend.constants.ErrorsEnum.ERROR_USER_006;
 public class UserResetPasswordTokenServiceImpl implements UserResetPasswordTokenService {
     private static final Logger log = LoggerFactory.getLogger(UserResetPasswordTokenServiceImpl.class);
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final UserResetPasswordTokenRepository userResetPasswordTokenRepository;
+    private final UserResetPasswordHistoryRepository userResetPasswordHistoryRepository;
+    private final PasswordEncoder encoder;
+    private final EmailServiceImpl emailService;
 
-    @Autowired
-    UserResetPasswordTokenRepository userResetPasswordTokenRepository;
-
-    @Autowired
-    UserResetPasswordHistoryRepository userResetPasswordHistoryRepository;
-
-    @Autowired
-    PasswordEncoder encoder;
-
-    @Autowired
-    EmailServiceImpl emailService;
+    public UserResetPasswordTokenServiceImpl(UserRepository userRepository,
+                                             UserResetPasswordTokenRepository userResetPasswordTokenRepository,
+                                             UserResetPasswordHistoryRepository userResetPasswordHistoryRepository,
+                                             PasswordEncoder encoder,
+                                             EmailServiceImpl emailService) {
+        this.userRepository = userRepository;
+        this.userResetPasswordTokenRepository = userResetPasswordTokenRepository;
+        this.userResetPasswordHistoryRepository = userResetPasswordHistoryRepository;
+        this.encoder = encoder;
+        this.emailService = emailService;
+    }
 
     @Override
     public ResponseEntity<Object> createResetPasswordTokenRequest(String email) {

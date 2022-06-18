@@ -11,7 +11,6 @@ import com.ratify.backend.repositories.BusinessRepository;
 import com.ratify.backend.repositories.RateRepository;
 import com.ratify.backend.repositories.UserRepository;
 import com.ratify.backend.services.interfaces.RateService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,14 +25,17 @@ import static com.ratify.backend.constants.ErrorsEnum.ERROR_USER_001;
 
 @Service
 public class RateServiceImpl implements RateService {
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final BusinessRepository businessRepository;
+    private final RateRepository rateRepository;
 
-    @Autowired
-    BusinessRepository businessRepository;
-
-    @Autowired
-    RateRepository rateRepository;
+    public RateServiceImpl(UserRepository userRepository,
+                           BusinessRepository businessRepository,
+                           RateRepository rateRepository) {
+        this.userRepository = userRepository;
+        this.businessRepository = businessRepository;
+        this.rateRepository = rateRepository;
+    }
 
     @Override
     public ResponseEntity<Object> createRate(String username, String normalizedBusinessName, Integer estimate, String comment) {

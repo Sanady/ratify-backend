@@ -1,7 +1,6 @@
 package com.ratify.backend.controllers;
 
 import com.ratify.backend.services.implementations.RoleServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,8 +24,11 @@ import static com.ratify.backend.constants.ApplicationConstants.ROLE;
 @RestController
 @RequestMapping(ROLE)
 public class RoleController {
-    @Autowired
-    RoleServiceImpl roleService;
+    private final RoleServiceImpl roleService;
+
+    public RoleController(RoleServiceImpl roleService) {
+        this.roleService = roleService;
+    }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping(GET_ROLES_FROM_USER)

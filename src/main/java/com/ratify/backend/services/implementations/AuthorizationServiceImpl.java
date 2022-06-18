@@ -13,7 +13,6 @@ import com.ratify.backend.repositories.RoleRepository;
 import com.ratify.backend.repositories.UserRepository;
 import com.ratify.backend.security.JwtUtils;
 import com.ratify.backend.services.interfaces.AuthorizationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -37,23 +36,26 @@ import static com.ratify.backend.constants.ErrorsEnum.ERROR_ROLE_001;
 
 @Service
 public class AuthorizationServiceImpl implements AuthorizationService {
-    @Autowired
-    AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder encoder;
+    private final JwtUtils jwtUtils;
+    private final EmailServiceImpl emailService;
 
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    RoleRepository roleRepository;
-
-    @Autowired
-    PasswordEncoder encoder;
-
-    @Autowired
-    JwtUtils jwtUtils;
-
-    @Autowired
-    EmailServiceImpl emailService;
+    public AuthorizationServiceImpl(AuthenticationManager authenticationManager,
+                                    UserRepository userRepository,
+                                    RoleRepository roleRepository,
+                                    PasswordEncoder encoder,
+                                    JwtUtils jwtUtils,
+                                    EmailServiceImpl emailService) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.encoder = encoder;
+        this.jwtUtils = jwtUtils;
+        this.emailService = emailService;
+    }
 
     @Override
     public ResponseEntity<Object> authenticateUser(LoginRequest loginRequest) {

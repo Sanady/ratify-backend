@@ -20,6 +20,9 @@ public enum ErrorsEnum {
     ERROR_BUSINESS_007("Business type is empty!"),
     ERROR_BUSINESS_009("Business name or username cannot be null!"),
 
+    ERROR_BUSINESS_TYPE_001("Business type already exists!"),
+    ERROR_BUSINESS_TYPE_002("Business type does not exists!"),
+
     ERROR_RATE_001("Estimates must be between 1 and 5"),
     ERROR_RATE_002("Comment is too short or too long, please check comment field!"),
     ERROR_RATE_003("You already rated this business!"),

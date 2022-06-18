@@ -19,6 +19,7 @@
 		<lombok.version>1.18.22</lombok.version>
 		<jakarta.xml.bind.version>2.3.2</jakarta.xml.bind.version>
 		<open.api.version>1.2.32</open.api.version>
+		<java.faker.version>1.0.2</java.faker.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -101,6 +102,19 @@
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>de.flapdoodle.embed</groupId>
+			<artifactId>de.flapdoodle.embed.mongo</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.javafaker</groupId>
+			<artifactId>javafaker</artifactId>
+			<version>${java.faker.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
