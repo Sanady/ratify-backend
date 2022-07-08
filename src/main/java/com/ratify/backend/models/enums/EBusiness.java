@@ -5,5 +5,7 @@ public enum EBusiness {
     BAR,
     COFFEE_SHOP,
     RESTAURANT,
-    STREET_FOOD
+    STREET_FOOD,
+    IT_FIRM,
+    CONSULTING
 }

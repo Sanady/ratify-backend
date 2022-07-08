@@ -95,6 +95,14 @@ public class BusinessServiceImpl implements BusinessService {
                         businessTypeList.add(EBusiness.STREET_FOOD);
                         break;
 
+                    case "it firm":
+                        businessTypeList.add(EBusiness.IT_FIRM);
+                        break;
+
+                    case "consulting":
+                        businessTypeList.add(EBusiness.CONSULTING);
+                        break;
+
                     default:
                         throw new InvalidInputException(ERROR_BUSINESS_002.getCode());
                 }

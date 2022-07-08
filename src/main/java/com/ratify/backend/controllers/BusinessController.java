@@ -3,7 +3,6 @@ package com.ratify.backend.controllers;
 import com.ratify.backend.payloads.requests.CreateBusinessRequest;
 import com.ratify.backend.payloads.requests.SetBusinessStatusRequest;
 import com.ratify.backend.services.implementations.BusinessServiceImpl;
-import com.ratify.backend.services.implementations.BusinessTypeServiceImpl;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,27 +19,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static com.ratify.backend.constants.ApplicationConstants.ADD_BUSINESS_TYPE;
 import static com.ratify.backend.constants.ApplicationConstants.BUSINESS;
 import static com.ratify.backend.constants.ApplicationConstants.BUSINESS_STATUS;
 import static com.ratify.backend.constants.ApplicationConstants.CREATE_BUSINESS;
 import static com.ratify.backend.constants.ApplicationConstants.DELETE_BUSINESS;
-import static com.ratify.backend.constants.ApplicationConstants.GET_ALL_BUSINESS_TYPES;
 import static com.ratify.backend.constants.ApplicationConstants.GET_BUSINESS;
-import static com.ratify.backend.constants.ApplicationConstants.GET_BUSINESS_TYPE;
-import static com.ratify.backend.constants.ApplicationConstants.REMOVE_BUSINESS_TYPE;
-
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(BUSINESS)
 public class BusinessController {
     private final BusinessServiceImpl businessService;
-    private final BusinessTypeServiceImpl businessTypeService;
 
-    public BusinessController(BusinessServiceImpl businessService, BusinessTypeServiceImpl businessTypeService) {
+    public BusinessController(BusinessServiceImpl businessService) {
         this.businessService = businessService;
-        this.businessTypeService = businessTypeService;
     }
 
     @PreAuthorize("hasRole('MODERATOR')")
@@ -65,29 +57,5 @@ public class BusinessController {
     @DeleteMapping(DELETE_BUSINESS)
     public ResponseEntity<Object> deleteBusiness(@RequestParam String name) {
         return businessService.deleteBusiness(name);
-    }
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping(ADD_BUSINESS_TYPE)
-    public ResponseEntity<Object> addBusinessType(@RequestParam String name) {
-        return businessTypeService.addBusinessType(name);
-    }
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping(REMOVE_BUSINESS_TYPE)
-    public ResponseEntity<Object> removeBusinessType(@RequestParam String name) {
-        return businessTypeService.removeBusinessType(name);
-    }
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(GET_ALL_BUSINESS_TYPES)
-    public ResponseEntity<Object> getAllBusinessTypes() {
-        return businessTypeService.getAllBusinessTypes();
-    }
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(GET_BUSINESS_TYPE)
-    public ResponseEntity<Object> getBusinessType(@RequestParam String name) {
-        return businessTypeService.getBusinessType(name);
     }
 }
