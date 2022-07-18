@@ -7,7 +7,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
@@ -22,16 +21,19 @@ public class Rate {
     @JsonProperty("business_normalized_name")
     private String businessNormalizedName;
 
-    @Size(min = 8, max = 1024)
-    private String comment;
-
     @NotBlank
     private Integer estimate;
 
-    public Rate(String username, String businessNormalizedName, String comment, Integer estimate) {
+    @NotBlank
+    private String type;
+
+    public Rate(String username,
+                String businessNormalizedName,
+                Integer estimate,
+                String type) {
         this.username = username;
         this.businessNormalizedName = businessNormalizedName;
-        this.comment = comment;
         this.estimate = estimate;
+        this.type = type;
     }
 }

@@ -44,7 +44,10 @@ public class ApplicationConstants {
 
     //Rate
     public static final String RATE = V1 + "/rate";
-    public static final String POST_RATE = "/create";
+    public static final String POST_BENEFIT_RATE = "/create/benefit";
+    public static final String POST_INTERVIEW_RATE = "/create/interview";
+    public static final String POST_REVIEW_RATE = "/create/review";
+    public static final String GET_REVIEW_RATES = "/get/reviews";
 
 
     private ApplicationConstants() {}

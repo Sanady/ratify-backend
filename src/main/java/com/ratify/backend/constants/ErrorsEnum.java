@@ -1,5 +1,8 @@
 package com.ratify.backend.constants;
 
+import lombok.Getter;
+
+@Getter
 public enum ErrorsEnum {
     ERROR_AUTHENTICATION_001("Username is already in use!"),
     ERROR_AUTHENTICATION_002("Email is already in use!"),
@@ -24,8 +27,9 @@ public enum ErrorsEnum {
     ERROR_BUSINESS_TYPE_002("Business type does not exists!"),
 
     ERROR_RATE_001("Estimates must be between 1 and 5"),
-    ERROR_RATE_002("Comment is too short or too long, please check comment field!"),
+    ERROR_RATE_002("Field is too short or too long, please check out your request!"),
     ERROR_RATE_003("You already rated this business!"),
+    ERROR_RATE_004("Type of the rate cannot be null, empty or invalid!"),
 
     ERROR_ROLE_001("Role is not found."),
     ERROR_ROLE_002("Roles are empty!"),
@@ -36,9 +40,5 @@ public enum ErrorsEnum {
 
     ErrorsEnum(String code) {
         this.code = code;
-    }
-
-    public String getCode() {
-        return code;
     }
 }

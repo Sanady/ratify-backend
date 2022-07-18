@@ -1,6 +1,8 @@
 package com.ratify.backend.repositories;
 
 import com.ratify.backend.models.Rate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +11,7 @@ import java.util.Optional;
 @Repository
 public interface RateRepository extends MongoRepository<Rate, String> {
     Optional<Rate> getRateByUsername(String username);
+    Page<Object> findAllByType(String type, Pageable pageable);
 
-    boolean existsByUsernameAndBusinessNormalizedName(String username, String businessNormalizedName);
+    boolean existsByUsernameAndBusinessNormalizedNameAndType(String username, String businessNormalizedName, String type);
 }

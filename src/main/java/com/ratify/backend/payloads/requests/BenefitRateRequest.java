@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Data
-public class RateBusinessRequest {
+public class BenefitRateRequest {
     @NotBlank
     private String username;
 
@@ -15,7 +15,7 @@ public class RateBusinessRequest {
     @NotBlank
     private String businessName;
 
-    @Size(min = 8, max = 1024)
+    @Size(min = 32, max = 1024)
     private String comment;
 
     @NotBlank
