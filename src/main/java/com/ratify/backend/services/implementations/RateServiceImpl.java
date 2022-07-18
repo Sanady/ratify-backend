@@ -17,6 +17,7 @@ import com.ratify.backend.payloads.responses.MessageResponse;
 import com.ratify.backend.repositories.BusinessRepository;
 import com.ratify.backend.repositories.RateRepository;
 import com.ratify.backend.repositories.UserRepository;
+import com.ratify.backend.security.JwtUtils;
 import com.ratify.backend.services.interfaces.RateService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,6 +39,7 @@ import static com.ratify.backend.constants.ErrorsEnum.ERROR_RATE_001;
 import static com.ratify.backend.constants.ErrorsEnum.ERROR_RATE_002;
 import static com.ratify.backend.constants.ErrorsEnum.ERROR_RATE_003;
 import static com.ratify.backend.constants.ErrorsEnum.ERROR_RATE_004;
+import static com.ratify.backend.constants.ErrorsEnum.ERROR_RATE_005;
 import static com.ratify.backend.constants.ErrorsEnum.ERROR_USER_001;
 
 @Service
@@ -47,13 +49,16 @@ public class RateServiceImpl implements RateService {
     private final UserRepository userRepository;
     private final BusinessRepository businessRepository;
     private final RateRepository rateRepository;
+    private final JwtUtils jwtUtils;
 
     public RateServiceImpl(UserRepository userRepository,
                            BusinessRepository businessRepository,
-                           RateRepository rateRepository) {
+                           RateRepository rateRepository,
+                           JwtUtils jwtUtils) {
         this.userRepository = userRepository;
         this.businessRepository = businessRepository;
         this.rateRepository = rateRepository;
+        this.jwtUtils = jwtUtils;
     }
 
     @Override
@@ -185,6 +190,23 @@ public class RateServiceImpl implements RateService {
         response.put("totalItems", pageRates.getTotalElements());
         response.put("totalPages", pageRates.getTotalPages());
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @Override
+    public ResponseEntity<Object> deleteRate(String businessName, String type, String token) {
+        User user = userRepository.findByUsername(jwtUtils.getUserNameFromJwtToken(token.substring(7)))
+                .orElseThrow(() -> new UsernameNotFoundException(ERROR_USER_001.getCode()));
+
+        Business business = businessRepository.findByNormalizedName(businessName.toUpperCase().replaceAll("\\s", ""))
+                .orElseThrow(() -> new NotFoundException(ERROR_BUSINESS_003.getCode()));
+
+        Rate rate = (Rate) rateRepository.findByUsernameAndBusinessNormalizedNameAndType(user.getUsername(),
+                        business.getNormalizedName(),
+                        type)
+                .orElseThrow(() -> new NotFoundException(ERROR_RATE_005.getCode()));
+
+        rateRepository.delete(rate);
+        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse("Rate has been deleted."));
     }
 
 

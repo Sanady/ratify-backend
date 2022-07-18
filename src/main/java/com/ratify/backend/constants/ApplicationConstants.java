@@ -48,6 +48,7 @@ public class ApplicationConstants {
     public static final String POST_INTERVIEW_RATE = "/create/interview";
     public static final String POST_REVIEW_RATE = "/create/review";
     public static final String GET_REVIEW_RATES = "/get/reviews";
+    public static final String DELETE_RATE = "/delete";
 
 
     private ApplicationConstants() {}

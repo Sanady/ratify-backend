@@ -10,4 +10,5 @@ public interface RateService {
     ResponseEntity<Object> createInterviewRate(InterviewRateRequest interviewRateRequest);
     ResponseEntity<Object> createReviewRate(ReviewRateRequest reviewRateRequest);
     ResponseEntity<Object> getAllReviewsByType(String type, int page, int size);
+    ResponseEntity<Object> deleteRate(String businessName, String type, String token);
 }

@@ -4,16 +4,20 @@ import com.ratify.backend.payloads.requests.BenefitRateRequest;
 import com.ratify.backend.payloads.requests.InterviewRateRequest;
 import com.ratify.backend.payloads.requests.ReviewRateRequest;
 import com.ratify.backend.services.implementations.RateServiceImpl;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.ratify.backend.constants.ApplicationConstants.DELETE_RATE;
 import static com.ratify.backend.constants.ApplicationConstants.GET_REVIEW_RATES;
 import static com.ratify.backend.constants.ApplicationConstants.POST_BENEFIT_RATE;
 import static com.ratify.backend.constants.ApplicationConstants.POST_INTERVIEW_RATE;
@@ -54,5 +58,13 @@ public class RateController {
                                              @RequestParam(defaultValue = "0") int page,
                                              @RequestParam(defaultValue = "3") int size) {
         return rateService.getAllReviewsByType(type, page, size);
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping(DELETE_RATE)
+    public ResponseEntity<Object> deleteRate(@RequestParam String type,
+                                             @RequestParam(name = "business_name") String businessName,
+                                             @Parameter(hidden = true) @RequestHeader(name="Authorization") String token) {
+        return rateService.deleteRate(businessName, type, token);
     }
 }

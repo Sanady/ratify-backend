@@ -11,6 +11,7 @@ import java.util.Optional;
 @Repository
 public interface RateRepository extends MongoRepository<Rate, String> {
     Optional<Rate> getRateByUsername(String username);
+    Optional<Object> findByUsernameAndBusinessNormalizedNameAndType(String username, String businessName, String type);
     Page<Object> findAllByType(String type, Pageable pageable);
 
     boolean existsByUsernameAndBusinessNormalizedNameAndType(String username, String businessNormalizedName, String type);

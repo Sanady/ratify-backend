@@ -30,6 +30,7 @@ public enum ErrorsEnum {
     ERROR_RATE_002("Field is too short or too long, please check out your request!"),
     ERROR_RATE_003("You already rated this business!"),
     ERROR_RATE_004("Type of the rate cannot be null, empty or invalid!"),
+    ERROR_RATE_005("Rate does not exists!"),
 
     ERROR_ROLE_001("Role is not found."),
     ERROR_ROLE_002("Roles are empty!"),
